@@ -1,0 +1,25 @@
+name: PR Parse List
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Run script
+        run: python deduplicate.py
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: "[Bot] Parsing emails.txt"
